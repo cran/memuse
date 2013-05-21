@@ -1,0 +1,27 @@
+import(methods)
+
+exportClasses("memuse")
+
+exportMethods(
+  ### Constructors
+  "mu", "memuse",
+  ### Accessors
+  "size", "unit", "unit.prefix", "unit.names",
+  ### Replacers
+  "size<-", "unit<-", "unit.prefix<-", "unit.names<-",
+  ### Printing
+  "print", "show", 
+  ### Swaps
+  "swap.unit", "swap.prefix", "swap.names",
+  ### Misc
+  "howmany", "as.memuse"#, "as.numeric"
+)
+
+export(
+  # Constructor
+  memuse, mu,
+  # Arithmetic
+  "+", "-", "*", "/", "^", 
+  # Misc
+  print, howbig, howbig.par, howmany
+)
