@@ -12,13 +12,14 @@
 \usage{
   howbig(nrow, ncol, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES, 
          ..., type="double", intsize=4)
-  howbig.par(nrow, ncol, cores, par="mpi", unit=.UNIT, unit.prefix=.PREFIX, 
-             unit.names=.NAMES, ..., type="double", intsize=4, ICTXT=0)
+  howbig.par(nrow, ncol, cores=1, par="balanced", unit=.UNIT, 
+			 unit.prefix=.PREFIX, unit.names=.NAMES, ..., type="double", 
+			 intsize=4, ICTXT=0, bldim=c(4, 4))
 }
 \arguments{
   \item{nrow, ncol}{Number of (global) rows/columns of the matrix.}
   \item{cores}{The number of cores/processors}
-  \item{par}{Type of data distribution. Choices are "dmat" or "mpi". The
+  \item{par}{Type of data distribution. Choices are "dmat" or "balanced". The
   former is for \pkg{pbdDMAT} objects, the latter is the simple, locally
   load-balanced block partitioning.}
   \item{unit}{string; the unit of storage, such as "MiB" or "MB", 
@@ -36,6 +37,7 @@
   this is platform dependent.}
   \item{ICTXT}{BLACS context number; only used with \code{howbig.par()}
   with \code{par="dmat"}.}
+  \item{bldim}{Blocking factor for block-cyclically decomposed (dmat) data.}
 }
 \details{
   These functions provide the memory usage of an unallocated, dense, 
