@@ -2,6 +2,17 @@
 mu_error <- function() stop("Badly formed 'memuse' object", call.=FALSE)
 
 
+check_type <- function(type, intsize)
+{
+  if (type == "double")
+    bytes <- 8
+  else if (type == "integer")
+    bytes <- intsize
+  
+  return( bytes )
+}
+
+
 # Function to grab the printable units from the convoluted .units data structure
 get_units <- function(x)
 {
@@ -120,62 +131,6 @@ abc <- function(a, b, c)
 }
 
 
-# Approximate size (by order magnitude) of a number
-approx_size <- function(x, digits=1)
-{
-  # vectorize if needed
-  if (length(x) > 1){
-    ret <- sapply(x, approx_size)
-    class(ret) <- "approx"
-    
-    return( ret )
-  }
-  
-  ordmag <- log10(x)
-  if (ordmag < 3){
-    char <- ""
-  }
-  else if (ordmag < 6){
-    char <- "k"
-    x <- round(x/(10^3), digits=digits)
-  } 
-  else if (ordmag < 9){
-    char <- "m"
-    x <- round(x/(10^6), digits=digits)
-  } 
-  else if (ordmag < 12){
-    char <- "b"
-    x <- round(x/(10^9), digits=digits)
-  } 
-  else if (ordmag < 15){
-    char <- "t"
-    x <- round(x/(10^12), digits=digits)
-  } 
-  else if (ordmag < 18){
-    char <- "qd"
-    x <- round(x/(10^15), digits=digits)
-  } 
-  else if (ordmag < 21){
-    char <- "qt"
-    x <- round(x/(10^18), digits=digits)
-  } 
-  else if (ordmag < 24){
-    char <- "sx"
-    x <- round(x/(10^21), digits=digits)
-  } 
-  else if (ordmag < 27){
-    char <- "sp"
-    x <- round(x/(10^24), digits=digits)
-  }
-  
-  size <- paste(x, char, sep="")
-  
-  class(size) <- "approx"
-  
-  return( size )
-}
-
-
 # whole number checker
 is.int <- function(x)
 {
@@ -190,5 +145,32 @@ is.int <- function(x)
     return( FALSE )
   else
     return( abs(x - floor(x)) < tol )
+}
+
+
+
+# return the value or 0 if NULL
+val_or_zero <- function(x)
+{
+  if (is.null(x))
+    return(0)
+  else
+    return(x)
+}
+
+
+
+# Zero's digits of a string after the first 15 digits
+digits2zero <- function(str)
+{
+  if (nchar(str) <= 15)
+    return( str )
+  
+  split <- simplify2array(strsplit(x=str, split=""))
+  
+  n <- length(split) - 15L
+  ret <- paste(paste(split[1L:15L], collapse=""), paste(rep(0, n), collapse=""), collapse="", sep="")
+  
+  return( ret )
 }
 

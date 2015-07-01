@@ -1,4 +1,58 @@
-# Switch out prefix (changing x@size as needed)
+#' Swaps
+#' 
+#' Methods for swapping between different memuse formats.
+#' 
+#' These methods allow simple (coherent) swaps between the different
+#' \code{memuse} formats.
+#' 
+#' \code{swap.unit()} will switch an object to another, supplied unit.  If the
+#' unit is from another prefix, then the prefix too will change.  In this case,
+#' the size will change appropriately.
+#' 
+#' \code{swap.prefix()} will change an object from one unit.prefix to the
+#' other. In this case, the size will change appropriately.
+#' 
+#' \code{swap.names} will change from short to long, or long to short printing.
+#' The size and prefix of the object are unchanged.
+#' 
+#' @param x 
+#' memuse object
+#' @param unit 
+#' new unit for the \code{memuse} object after the swap occurs
+#' @param precedence
+#' Currently does nothing.
+#' 
+#' @return 
+#' Returns a \code{memuse} class object.
+#' 
+#' @examples
+#' \dontrun{
+#' x <- mu(1e6)
+#' 
+#' x
+#' swap.prefix(x)
+#' swap.names(x)
+#' swap.unit(x, "bytes")
+#' }
+#' 
+#' @seealso \code{ \link{Constructor} \link{memuse-class} }
+#' @keywords Methods
+#' @name Swaps
+#' @rdname swaps
+NULL
+
+
+
+#' @rdname swaps
+#' @export
+setGeneric(name="swap.prefix", 
+  function(x) 
+    standardGeneric("swap.prefix"),
+  package="memuse"
+)
+
+#' @rdname swaps
+#' @export
 setMethod("swap.prefix", signature(x="memuse"),
   function(x)
   {
@@ -25,7 +79,17 @@ setMethod("swap.prefix", signature(x="memuse"),
 )
 
 
-# Switch out names from short to long or vice versa
+
+#' @rdname swaps
+#' @export
+setGeneric(name="swap.names", 
+  function(x)
+    standardGeneric("swap.names"), 
+  package="memuse"
+)
+
+#' @rdname swaps
+#' @export
 setMethod("swap.names", signature(x="memuse"),
   function(x)
   {
@@ -47,7 +111,17 @@ setMethod("swap.names", signature(x="memuse"),
 )
 
 
-# Switch unit to supplied unit --- this one is a bit of a mess
+
+#' @rdname swaps
+#' @export
+setGeneric(name="swap.unit", 
+  function(x, unit, precedence=.PRECEDENCE)
+    standardGeneric("swap.unit"), 
+  package="memuse"
+)
+
+#' @rdname swaps
+#' @export
 setMethod("swap.unit", signature(x="memuse"),
   function(x, unit)#, precedence=.PRECEDENCE)
   {

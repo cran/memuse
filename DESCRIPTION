@@ -1,25 +1,27 @@
 Package: memuse
-Type: Package
-Title: Estimate the memory usage of dense, in-core, numeric objects.
-Version: 1.1
-Date: 2013-05-21
+Title: Memory Estimation Utilities
+Version: 2.5
 Description: How much ram do you need to store a 100,000 by 100,000 matrix?
-  Learn the scintillating answer to this and many more such questions with
-  the memuse package.  This package gives the user the size (memory usage) 
-  of an unallocated, in-core, dense, numeric matrix.  The output is an S4 
-  class object that can be manipulated to be presented in different ways 
-  (different units, short/long versions of those units, etc.).  The package
-  offers similar functionality to that of R's object.size() function, with 
-  the key difference being that memuse does not require an object to already
-  be allocated.  So one can determine the size of enormous matrices even
-  from a laptop.
+    How much ram is your current R session using? How much ram do you even have?
+    Learn the scintillating answer to these and many more such questions with
+    the 'memuse' package.
 License: GPL (>= 2)
-Depends: R (>= 2.14.0), utils, methods
-LazyData: yes
-LazyLoad: yes
-Author: Drew Schmidt
+Copyright: See memuse/inst/meminfo_LICENSE for the files in
+        src/meminfo/.
+Depends: R (>= 2.15.1)
+Imports: methods
+NeedsCompilation: yes
+ByteCompile: yes
+Authors@R: c(
+        person("Drew", "Schmidt", email="wrathematics@gmail.com", role=c("aut", "cre")),
+        person("Christian", "Heckendorf", role="ctb"),
+        person("Wei-Chen", "Chen", role="ctb"))
 Maintainer: Drew Schmidt <wrathematics@gmail.com>
-Packaged: 2013-08-07 01:40:36 UTC; mschmid3
-NeedsCompilation: no
+URL: https://github.com/shinra-dev/memuse
+BugReports: https://github.com/shinra-dev/memuse/issues
+Packaged: 2015-07-01 23:17:23 UTC; mschmid3
+Author: Drew Schmidt [aut, cre],
+  Christian Heckendorf [ctb],
+  Wei-Chen Chen [ctb]
 Repository: CRAN
-Date/Publication: 2013-08-07 07:04:13
+Date/Publication: 2015-07-02 06:47:25
