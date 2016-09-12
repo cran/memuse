@@ -1,4 +1,4 @@
-/* Copyright (c) 2015, Schmidt.  All rights reserved.
+/* Copyright (c) 2015-2016, Schmidt.  All rights reserved.
  * Use of this source code is governed by a BSD-style license
  * that can be found in the LICENSE file. */
 
@@ -59,7 +59,6 @@ int meminfo_abspath(const char *relpath, char **abspath)
   if (ptr == NULL)
   {
     free(abspath);
-    *abspath = NULL;
     return FILE_ERROR;
   }
   
@@ -143,4 +142,3 @@ int meminfo_filesize(memsize_t *filesize, const char *filename)
   
   return ret;
 }
-
