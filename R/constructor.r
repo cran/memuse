@@ -12,10 +12,10 @@
 #' @param unit 
 #' \code{string}; the unit of storage, such as "MiB" or "MB",
 #' depending on prefix.  Case is ignored.
-#' @param unit.prefix 
+#' @param prefix 
 #' \code{string}; the unit prefix, namely IEC or SI.  Case
 #' is ignored.
-#' @param unit.names 
+#' @param names 
 #' \code{string}; control for whether the unit names should
 #' be printed out or their abbreviation should be used.  Options are "long" and
 #' "short", respectively.  Case is ignored.
@@ -29,7 +29,7 @@
 #' x <- memuse(100, unit="kb")
 #' x
 #' 
-#' y <- memuse(100, unit="kb", unit.prefix="SI")
+#' y <- memuse(100, unit="kb", prefix="SI")
 #' y
 #' 
 #' ### Use the memory usage of object 'size'
@@ -49,7 +49,7 @@ NULL
 #' @rdname constructor
 #' @export
 setGeneric(name="mu", 
-  function(size, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
     standardGeneric("mu"), 
   package="memuse"
 )
@@ -57,46 +57,52 @@ setGeneric(name="mu",
 #' @rdname constructor
 #' @export
 setMethod("mu", signature(size="ANY"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(utils::object.size(size), unit=unit, unit.prefix=unit.prefix, unit.names=unit.names)
+  function(size, unit="best", prefix="IEC", names="short")
+  {
+    size = utils::object.size(size)
+    internal.mu(unclass(size), unit=unit, unit.prefix=prefix, unit.names=names)
+  }
 )
 
 #' @rdname constructor
 #' @export
 setMethod("mu", signature(size="NULL"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
   {
-    return( NULL )
+    internal.mu(0, unit=unit, unit.prefix=prefix, unit.names=names)
   }
 )
 
 #' @rdname constructor
 #' @export
 setMethod("mu", signature(size="numeric"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
   {
     if (NROW(size) == 1 && NCOL(size) == 1)
-      internal.mu(size=size, unit=unit, unit.prefix=unit.prefix, unit.names=unit.names)
+      internal.mu(size=size, unit=unit, unit.prefix=prefix, unit.names=names)
     else
-      mu(utils::object.size(size), unit=unit, unit.prefix=unit.prefix, unit.names=unit.names)
+    {
+      size = utils::object.size(size)
+      internal.mu(unclass(size), unit=unit, unit.prefix=prefix, unit.names=names)
+    }
   }
 )
 
 #' @rdname constructor
 #' @export
 setMethod("mu", signature(size="object_size"),
-  function(size, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
   {
-    return( internal.mu(size=unclass(size), unit=unit, unit.prefix=unit.prefix, unit.names=unit.names) )
+    internal.mu(size=unclass(size), unit=unit, unit.prefix=prefix, unit.names=names)
   }
 )
 
 #' @rdname constructor
 #' @export
 setMethod("mu", signature(size="missing"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
   {
-    return( memuse(0, unit=unit, unit.prefix=unit.prefix, unit.names=unit.names) )
+    internal.mu(0, unit=unit, unit.prefix=prefix, unit.names=names)
   }
 )
 
@@ -105,7 +111,7 @@ setMethod("mu", signature(size="missing"),
 #' @rdname constructor
 #' @export
 setGeneric(name="memuse", 
-  function(size, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
+  function(size, unit="best", prefix="IEC", names="short")
     standardGeneric("memuse"), 
   package="memuse"
 )
@@ -113,35 +119,34 @@ setGeneric(name="memuse",
 #' @rdname constructor
 #' @export
 setMethod("memuse", signature(size="ANY"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(utils::object.size(size), unit=unit, unit.prefix=unit.prefix, unit.names=unit.names)
+  function(size, unit="best", prefix="IEC", names="short")
+    mu(size, unit, prefix, names)
 )
 
 #' @rdname constructor
 #' @export
 setMethod("memuse", signature(size="NULL"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(size, unit, unit.prefix, unit.names)
+  function(size, unit="best", prefix="IEC", names="short")
+    mu(0, unit, prefix, names)
 )
 
 #' @rdname constructor
 #' @export
 setMethod("memuse", signature(size="missing"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(size, unit, unit.prefix, unit.names)
+  function(size, unit="best", prefix="IEC", names="short")
+    mu(0, unit, prefix, names)
 )
 
 #' @rdname constructor
 #' @export
 setMethod("memuse", signature(size="numeric"),
-  function(size=0, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(size, unit, unit.prefix, unit.names)
+  function(size=size, unit="best", prefix="IEC", names="short")
+    mu(size, unit, prefix, names)
 )
 
 #' @rdname constructor
 #' @export
 setMethod("memuse", signature(size="object_size"),
-  function(size, unit=.UNIT, unit.prefix=.PREFIX, unit.names=.NAMES)
-    mu(size, unit, unit.prefix, unit.names)
+  function(size, unit="best", prefix="IEC", names="short")
+    mu(size, unit, prefix, names)
 )
-

@@ -2,6 +2,7 @@
 mu_error <- function() stop("Badly formed 'memuse' object", call.=FALSE)
 
 
+
 check_type <- function(type, intsize)
 {
   if (type == "double")
@@ -13,11 +14,13 @@ check_type <- function(type, intsize)
 }
 
 
+
 # Function to grab the printable units from the convoluted .units data structure
 get_units <- function(x)
 {
   return( .units[[x@unit.names]][[x@unit.prefix]][["print"]] )
 }
+
 
 
 # Get the correct power for the factor that determines which unit is to be used
@@ -32,6 +35,7 @@ get_power <- function(x)
   else
     mu_error()
 }
+
 
 
 # Convert a memuse object to one stored in bytes
@@ -56,6 +60,7 @@ convert_to_bytes <- function(x)
   
   return( x )
 }
+
 
 
 # Find the best unit representation for an object
@@ -99,23 +104,6 @@ best.unit <- function(x)
 }
 
 
-# get the control unit
-ct.unit <- function(x)
-{
-  .UNIT <- tolower(.UNIT)
-  
-  if (.UNIT == "best")
-    x <- best.unit(x)
-  else {
-    x <- check.mu(x)
-    
-    if (tolower(x@unit) != .UNIT)
-      x <- swap.unit(x, .UNIT)
-  }
-  
-  return( x )
-}
-
 
 # stable a*b^c with c an integer
 abc <- function(a, b, c)
@@ -129,6 +117,7 @@ abc <- function(a, b, c)
   
   return( p )
 }
+
 
 
 # whole number checker
@@ -173,4 +162,3 @@ digits2zero <- function(str)
   
   return( ret )
 }
-

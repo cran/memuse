@@ -39,19 +39,19 @@ NULL
 setMethod("==", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix)
     {
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names)
     {
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
@@ -69,19 +69,19 @@ setMethod("==", signature(e1="memuse", e2="memuse"),
 setMethod("<", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix)
     {
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names)
     {
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
@@ -264,5 +264,3 @@ setMethod("!=", signature(e1="numeric", e2="memuse"),
     !(e1 == e2)
   }
 )
-
-

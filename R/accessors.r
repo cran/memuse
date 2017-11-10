@@ -12,7 +12,6 @@
 #' really use \code{as.numeric} instead, which is equivalent to calling
 #' \code{size(x, as.is=FALSE)}.
 #' 
-#' 
 #' @param x 
 #' memuse object
 #' @param as.is 
@@ -29,12 +28,12 @@
 #' 
 #' size(x)
 #' as.numeric(x)
-#' unit(x)
-#' unit.prefix(x)
-#' unit.names(x)
+#' mu.unit(x)
+#' mu.prefix(x)
+#' mu.names(x)
 #' }
 #' 
-#' @seealso \code{ \link{memuse-class} \link{Replacers} }
+#' @seealso \code{ \link{memuse-class} }
 #' @keywords Methods
 #' @name Accessors
 #' @rdname accessors
@@ -42,33 +41,33 @@ NULL
 
 #' @rdname accessors
 #' @export
-setGeneric(name="size", 
+setGeneric(name="mu.size", 
   function(x, as.is=TRUE)
-    standardGeneric("size"), 
+    standardGeneric("mu.size"), 
   package="memuse"
 )
 
 #' @rdname accessors
 #' @export
-setGeneric(name="unit", 
+setGeneric(name="mu.unit", 
   function(x)
-    standardGeneric("unit"), 
+    standardGeneric("mu.unit"), 
   package="memuse"
 )
 
 #' @rdname accessors
 #' @export
-setGeneric(name="unit.prefix", 
+setGeneric(name="mu.prefix", 
   function(x)
-    standardGeneric("unit.prefix"), 
+    standardGeneric("mu.prefix"), 
   package="memuse"
 )
 
 #' @rdname accessors
 #' @export
-setGeneric(name="unit.names", 
+setGeneric(name="mu.names", 
   function(x)
-    standardGeneric("unit.names"), 
+    standardGeneric("mu.names"), 
   package="memuse"
 )
 
@@ -76,7 +75,7 @@ setGeneric(name="unit.names",
 
 #' @rdname accessors
 #' @export
-setMethod("size", signature(x="memuse"),
+setMethod("mu.size", signature(x="memuse"),
   function(x, as.is=TRUE)
   {
     if (as.is)
@@ -88,143 +87,21 @@ setMethod("size", signature(x="memuse"),
 
 #' @rdname accessors
 #' @export
-setMethod("unit", signature(x="memuse"),
+setMethod("mu.unit", signature(x="memuse"),
   function(x)
     return(x@unit)
 )
 
 #' @rdname accessors
 #' @export
-setMethod("unit.prefix", signature(x="memuse"),
+setMethod("mu.prefix", signature(x="memuse"),
   function(x)
     return(x@unit.prefix)
 )
 
 #' @rdname accessors
 #' @export
-setMethod("unit.names", signature(x="memuse"),
+setMethod("mu.names", signature(x="memuse"),
   function(x)
     return(x@unit.names)
-)
-
-
-
-#' Replacers
-#' 
-#' Replacement methods for slots of objects of class \code{memuse}.
-#' 
-#' These methods are syntactic sugar for assignment using ordinary S4
-#' accessors.  So for example, \code{size(x) <- 10} is semantically no
-#' different from calling \code{x@@size <- 10}
-#' 
-#' These methods are strict replacement methods; if you need to swap the units
-#' of a \code{memuse} class object, you should probably be using the
-#' \code{\link{Swaps}} methods.  See example below for further details.
-#' 
-#' @name Replacers
-#' 
-#' @param x 
-#' memuse object
-#' @param value 
-#' replacement value
-#' 
-#' @return Returns a numeric element in the case of \code{size()}, otherwise a
-#' string is returned.
-#' 
-#' @examples
-#' \dontrun{
-#' x <- mu(2000, unit="bytes")
-#' x
-#' 
-#' size(x) <- 1000
-#' x
-#' }
-#' 
-#' @seealso \code{ \link{Accessors} \link{memuse-class} }
-#' @keywords Methods
-#' @rdname replacers
-NULL
-
-#' @rdname replacers
-#' @export
-setGeneric(name="size<-", 
-  function(x, value)
-    standardGeneric("size<-"), 
-  package="memuse"
-)
-
-#' @rdname replacers
-#' @export
-setGeneric(name="unit<-", 
-  function(x, value)
-    standardGeneric("unit<-"), 
-  package="memuse"
-)
-
-#' @rdname replacers
-#' @export
-setGeneric(name="unit.prefix<-", 
-  function(x, value)
-    standardGeneric("unit.prefix<-"), 
-  package="memuse"
-)
-
-#' @rdname replacers
-#' @export
-setGeneric(name="unit.names<-", 
-  function(x, value)
-    standardGeneric("unit.names<-"), 
-  package="memuse"
-)
-
-
-
-#' @rdname replacers
-#' @export
-setReplaceMethod("size", signature(x="memuse"),
-  function(x, value)
-  {
-    x@size <- value
-    x <- check.mu(x)
-    
-#    x <- swap.unit(x=x, unit=.UNIT)
-    
-    return( x )
-  }
-)
-
-#' @rdname replacers
-#' @export
-setReplaceMethod("unit", signature(x="memuse"),
-  function(x, value)
-  {
-    x@unit <- value
-    x <- check.mu(x)
-    
-    return( x )
-  }
-)
-
-#' @rdname replacers
-#' @export
-setReplaceMethod("unit.prefix", signature(x="memuse"),
-  function(x, value)
-  {
-    x@unit.prefix <- value
-    x <- check.mu(x)
-    
-    return( x )
-  }
-)
-
-#' @rdname replacers
-#' @export
-setReplaceMethod("unit.names", signature(x="memuse"),
-  function(x, value)
-  {
-    x@unit.names <- value
-    x <- check.mu(x)
-    
-    return( x )
-  }
 )

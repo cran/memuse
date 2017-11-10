@@ -10,7 +10,7 @@ MEMINFO_OBJS = \
 		meminfo/src/raminfo.o \
 		meminfo/src/swapinfo.o 
 
-R_OBJS   = wrappers.o
+R_OBJS   = wrappers.o memuse_native.o
 
 OBJECTS = $(MEMINFO_OBJS) $(R_OBJS)
 
@@ -22,5 +22,3 @@ $(SHLIB): $(OBJECTS)
 clean:
 	@rm -rf *.o *.d *.rc *.so* *.dylib *.dll *.a *.lib \
 				$(SHLIB) $(OBJECTS)
-
-

@@ -3,10 +3,10 @@
 \docType{methods}
 \name{Swaps}
 \alias{Swaps}
-\alias{swap.names}
-\alias{swap.names,memuse-method}
 \alias{swap.prefix}
 \alias{swap.prefix,memuse-method}
+\alias{swap.names}
+\alias{swap.names,memuse-method}
 \alias{swap.unit}
 \alias{swap.unit,memuse-method}
 \title{Swaps}
@@ -19,7 +19,7 @@ swap.names(x)
 
 \S4method{swap.names}{memuse}(x)
 
-swap.unit(x, unit, precedence = .PRECEDENCE)
+swap.unit(x, unit)
 
 \S4method{swap.unit}{memuse}(x, unit)
 }
@@ -27,8 +27,6 @@ swap.unit(x, unit, precedence = .PRECEDENCE)
 \item{x}{memuse object}
 
 \item{unit}{new unit for the \code{memuse} object after the swap occurs}
-
-\item{precedence}{Currently does nothing.}
 }
 \value{
 Returns a \code{memuse} class object.
@@ -65,4 +63,3 @@ swap.unit(x, "bytes")
 \code{ \link{Constructor} \link{memuse-class} }
 }
 \keyword{Methods}
-

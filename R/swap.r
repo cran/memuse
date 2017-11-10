@@ -19,8 +19,6 @@
 #' memuse object
 #' @param unit 
 #' new unit for the \code{memuse} object after the swap occurs
-#' @param precedence
-#' Currently does nothing.
 #' 
 #' @return 
 #' Returns a \code{memuse} class object.
@@ -72,9 +70,7 @@ setMethod("swap.prefix", signature(x="memuse"),
     
     x@unit.prefix <- new.prefix
     
-    x <- check.unit(x)
-    
-    return( x )
+    check.unit(x)
   }
 )
 
@@ -106,7 +102,7 @@ setMethod("swap.names", signature(x="memuse"),
     
     x@unit.names <- new.names
     
-    return( x )
+    x
   }
 )
 
@@ -115,7 +111,7 @@ setMethod("swap.names", signature(x="memuse"),
 #' @rdname swaps
 #' @export
 setGeneric(name="swap.unit", 
-  function(x, unit, precedence=.PRECEDENCE)
+  function(x, unit)
     standardGeneric("swap.unit"), 
   package="memuse"
 )
@@ -123,7 +119,7 @@ setGeneric(name="swap.unit",
 #' @rdname swaps
 #' @export
 setMethod("swap.unit", signature(x="memuse"),
-  function(x, unit)#, precedence=.PRECEDENCE)
+  function(x, unit)
   {
     unit <- tolower(unit)
     
@@ -174,7 +170,6 @@ setMethod("swap.unit", signature(x="memuse"),
         stop("invalid argument 'unit'.  See help('memuse')")
     }
     
-    return( x )
+    x
   }
 )
-

@@ -38,17 +38,17 @@ NULL
 setMethod("+", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix){
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names){
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
@@ -57,9 +57,9 @@ setMethod("+", signature(e1="memuse", e2="memuse"),
     
     e1@size <- e1@size + e2@size
     
-    ret <- swap.unit(e1, .UNIT)
+    ret <- swap.unit(e1, "best")
     
-    return( ret )
+    ret
   }
 )
 
@@ -77,9 +77,9 @@ setMethod("+", signature(e1="memuse", e2="numeric"),
     
     e1@size <- e1@size + e2
     
-    ret <- swap.unit(e1, .UNIT)
+    ret <- swap.unit(e1, "best")
     
-    return( ret )
+    ret
   }
 )
 
@@ -108,9 +108,9 @@ setMethod("+", signature(e1="memuse", e2="object_size"),
     
     e1@size <- e1@size + unclass(e2)
     
-    ret <- swap.unit(e1, .UNIT)
+    ret <- swap.unit(e1, "best")
     
-    return( ret )
+    ret
   }
 )
 
@@ -138,7 +138,7 @@ setMethod("-", signature(e1="memuse", e2="memuse"),
     ret <- e1+(-1*e2)
     mu.nonneg(ret)
     
-    return( ret )
+    ret
   }
 )
 
@@ -155,7 +155,7 @@ setMethod("-", signature(e1="memuse", e2="numeric"),
     ret <- e1+(-1*e2)
     mu.nonneg(ret)
     
-    return( ret )
+    ret
   }
 )
 
@@ -172,7 +172,7 @@ setMethod("-", signature(e1="numeric", e2="memuse"),
     ret <- e1+(-1*e2)
     mu.nonneg(ret)
     
-    return( ret )
+    ret
   }
 )
 
@@ -196,10 +196,10 @@ setMethod("-", signature(e1="memuse", e2="object_size"),
     
     e1@size <- e1@size - unclass(e2)
     
-    ret <- swap.unit(e1, .UNIT)
+    ret <- swap.unit(e1, "best")
     mu.nonneg(ret)
     
-    return( ret )
+    ret
   }
 )
 
@@ -214,10 +214,10 @@ setMethod("-", signature(e1="object_size", e2="memuse"),
     
     e2@size <- unclass(e1) - e2@size
     
-    ret <- swap.unit(e2, .UNIT)
+    ret <- swap.unit(e2, "best")
     mu.nonneg(ret)
     
-    return( ret )
+    ret
   }
 )
 
@@ -231,17 +231,17 @@ setMethod("-", signature(e1="object_size", e2="memuse"),
 setMethod("*", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix){
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names){
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
@@ -250,9 +250,7 @@ setMethod("*", signature(e1="memuse", e2="memuse"),
     
     e1@size <- e1@size * e2@size
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
 
@@ -270,9 +268,7 @@ setMethod("*", signature(e1="memuse", e2="numeric"),
     
     e1@size <- e1@size * e2
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
 
@@ -301,9 +297,7 @@ setMethod("*", signature(e1="memuse", e2="object_size"),
     
     e1@size <- e1@size * unclass(e2)
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
 
@@ -328,28 +322,24 @@ setMethod("*", signature(e1="object_size", e2="memuse"),
 setMethod("/", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix){
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names){
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
-    e1 <- convert_to_bytes(e1)
-    e2 <- convert_to_bytes(e2)
+    e1 <- convert_to_bytes(e1)@size
+    e2 <- convert_to_bytes(e2)@size
     
-    e1@size <- e1@size / e2@size
-    
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    e1 / e2
   }
 )
 
@@ -367,9 +357,7 @@ setMethod("/", signature(e1="memuse", e2="numeric"),
     
     e1@size <- e1@size / e2
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
 
@@ -382,8 +370,9 @@ setMethod("/", signature(e1="numeric", e2="memuse"),
   {
     if (length(e1) != 1)
       stop("vector * numeric : vector must be of length 1")
-    else
-      return( e2/e1 )
+    
+    e2 <- convert_to_bytes(e2)
+    e1 / e2@size
   }
 )
 
@@ -394,13 +383,8 @@ setMethod("/", signature(e1="numeric", e2="memuse"),
 setMethod("/", signature(e1="memuse", e2="object_size"),
   function(e1, e2) 
   {
-    e1 <- convert_to_bytes(e1)
-    
-    e1@size <- e1@size / unclass(e2)
-    
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    e1 <- convert_to_bytes(e1)@size
+    e1 / unclass(e2)
   }
 )
 
@@ -411,13 +395,8 @@ setMethod("/", signature(e1="memuse", e2="object_size"),
 setMethod("/", signature(e1="object_size", e2="memuse"),
   function(e1, e2) 
   {
-    e2 <- convert_to_bytes(e2)
-    
-    e2@size <- unclass(e1) / e2@size
-    
-    ret <- swap.unit(e2, .UNIT)
-    
-    return( ret )
+    e2 <- convert_to_bytes(e2)@size
+    unclass(e1) / e2
   }
 )
 
@@ -432,17 +411,17 @@ setMethod("/", signature(e1="object_size", e2="memuse"),
 setMethod("^", signature(e1="memuse", e2="memuse"),
   function(e1, e2) 
   {
-    # if unit prefices disagree, use .PREFIX
+    # if unit prefices disagree, use "IEC"
     if (e1@unit.prefix != e2@unit.prefix){
-      if (e1@unit.prefix != .PREFIX)
+      if (e1@unit.prefix != "IEC")
         e1 <- swap.prefix(e1)
-      if (e2@unit.prefix != .PREFIX)
+      if (e2@unit.prefix != "IEC")
         e2 <- swap.prefix(e2)
     }
     
-    # if names disagree, use .NAMES
+    # if names disagree, use "short"
     if (e1@unit.names != e2@unit.names){
-      if (e1@unit.names != .NAMES)
+      if (e1@unit.names != "short")
         e1 <- swap.names(e1)
     }
     
@@ -451,9 +430,7 @@ setMethod("^", signature(e1="memuse", e2="memuse"),
     
     e1@size <- e1@size ^ e2@size
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
 
@@ -471,9 +448,6 @@ setMethod("^", signature(e1="memuse", e2="numeric"),
     
     e1@size <- e1@size ^ e2
     
-    ret <- swap.unit(e1, .UNIT)
-    
-    return( ret )
+    swap.unit(e1, "best")
   }
 )
-

@@ -44,7 +44,7 @@ typedef int dummy_typedef;
 int read_proc_file(const char *file, memsize_t *val, char *field, int fieldlen)
 {
   size_t len = 0;
-  char *tmp;
+  char *tmp = NULL;
   memsize_t value = FAILURE;
   
   *val = 0L;
@@ -65,7 +65,7 @@ int read_proc_file(const char *file, memsize_t *val, char *field, int fieldlen)
     fclose(fp);
     free(tmp);
     
-    if (value != FAILURE)
+    if (value != (memsize_t)FAILURE)
     {
       *val = value;
       return MEMINFO_OK;

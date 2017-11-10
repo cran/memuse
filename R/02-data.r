@@ -1,59 +1,3 @@
-### Package control
-
-#' Control Variables for the memuse Package.
-#' 
-#' A set of controls which provides (changeable) default values for many
-#' functions in this package.
-#' 
-#' Currently, there are 4 control data objects: \itemize{ \item \code{.UNIT}
-#' defaults to "best".  The default choice will scale \code{size} values to the
-#' nearest (by scaling factor --- 1024 or 1000 depending on unit prefix).
-#' Other acceptable choices are, for example, "kb" or "kib".  If the user
-#' requests the wrong unit by prefix (e.g., "kb" instead of "kib" when the unit
-#' prefix is IEC), then the correct one will be chosen for the user.
-#' 
-#' \item \code{.PREFIX} defaults to "IEC".  Acceptable values are "IEC" and
-#' "SI".
-#' 
-#' \item \code{.NAMES} defaults to "short".  Acceptable values are "short" and
-#' "long".
-#' 
-#' \item \code{.PRECEDENCE} defaults to "prefix".  Acceptable values are "unit"
-#' and "prefix".
-#' 
-#' }
-#' 
-#' All values are case insensitive, in that the correct case will be determined
-#' for the user if the incorrect case is supplied.  For example, if the user
-#' sets \code{.PREFIX <- "si"}, then the correct case ("SI") will be determined
-#' as needed.
-#' 
-#' For a "human readable" explanation of what these values do, see the package
-#' vignette.
-#' 
-#' @examples
-#' \dontrun{
-#' mu(2000)
-#' .PREFIX <- "SI"
-#' mu(2000)
-#' }
-#' 
-#' @name Control Variables
-#' @aliases Control .UNIT .PREFIX .NAMES .PRECEDENCE
-#' @docType data
-#' @seealso \code{ \link{memuse-class} \link{Constructor} }
-#' @rdname control
-#' @keywords Data
-.UNIT <- "best"
-#' @rdname control
-.NAMES <- "short"
-#' @rdname control
-.PREFIX <- "IEC"
-#' @rdname control
-.PRECEDENCE <- "prefix"
-
-
-
 .units <- list(
   short=list(
     IEC=list(
@@ -103,3 +47,11 @@
 )
 
 
+
+# From: https://en.wikipedia.org/wiki/Names_of_large_numbers
+.numbers <- data.frame(
+  name=c("Thousand", "Million", "Billion", "Trillion", "Quadrillion", "Quintillion", "Sextillion", "Septillion", "Octillion", "Nonillion", "Decillion", "Undecillion", "Duodecillion", "Tredecillion", "Quattuordecillion", "Quindecillion", "Sexdecillion", "Septendecillion", "Octodecillion", "Novemdecillion", "Vigintillion", "Googol", "Centillion"),
+  shorthand=c("k", "m", "b", "t", "q", "qt", "sx", "sp", "ot", "n", "d", "u", "dd", "td", "qtd", "qd", "sxd", "spd", "otd", "nd", "vg", "g", "ct"),
+  exponent=c(3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63, 100, 303),
+  stringsAsFactors=FALSE
+)
