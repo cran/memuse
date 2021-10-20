@@ -1,3 +1,10 @@
+Release 4.2-1:
+  * Updated configure files for CRAN.
+
+Release 4.2-0:
+  * Added float option to sizer functions.
+  * Fixed long-standing hr() bug with decimals.
+
 Release 4.1-0:
   * Added Sys.dirsize().
   * Fixed documentation problem.
