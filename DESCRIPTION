@@ -1,6 +1,6 @@
 Package: memuse
 Title: Memory Estimation Utilities
-Version: 4.2-2
+Version: 4.2-3
 Description: How much ram do you need to store a 100,000 by 100,000 matrix?
     How much ram is your current R session using? How much ram do you even have?
     Learn the scintillating answer to these and many more such questions with
@@ -19,10 +19,10 @@ Maintainer: Drew Schmidt <wrathematics@gmail.com>
 URL: https://github.com/shinra-dev/memuse
 BugReports: https://github.com/shinra-dev/memuse/issues
 RoxygenNote: 7.1.2
-Packaged: 2022-11-01 13:39:01 UTC; mschmid3
+Packaged: 2023-01-23 17:13:06 UTC; mschmid3
 Author: Drew Schmidt [aut, cre],
   Christian Heckendorf [ctb] (FreeBSD improvements to meminfo),
   Wei-Chen Chen [ctb] (Windows build fixes),
   Dan Burgess [ctb] (donation of a Mac for development and testing)
 Repository: CRAN
-Date/Publication: 2022-11-01 16:47:44 UTC
+Date/Publication: 2023-01-24 15:40:15 UTC
